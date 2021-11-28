@@ -11,6 +11,7 @@ import java.util.List;
 
 public class SchoolListAdapter extends RecyclerView.Adapter<SchoolViewHolder> {
     List<School> schools;
+    private SchoolClickListener schoolClickListener;
 
     public SchoolListAdapter(List<School> schools) {
         this.schools = schools;
@@ -31,11 +32,17 @@ public class SchoolListAdapter extends RecyclerView.Adapter<SchoolViewHolder> {
         holder.name.setText(mSchool.getName());
         holder.description.setText(mSchool.getDescription());
         holder.logo.setImageResource(mSchool.getLogo());
+
+        holder.setAdapterClickListener(schoolClickListener);
     }
 
     @Override
     public int getItemCount() {
         if (schools != null) return schools.size();
         else return 0;
+    }
+
+    public void setOnSchoolClickListener(SchoolClickListener schoolClickListener) {
+        this.schoolClickListener = schoolClickListener;
     }
 }

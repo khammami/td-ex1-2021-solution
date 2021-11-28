@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,5 +39,20 @@ public class MainActivity extends AppCompatActivity {
 
         SchoolListAdapter mSchoolListAdapter = new SchoolListAdapter(mSchools);
         mRecyclerView.setAdapter(mSchoolListAdapter);
+
+        mSchoolListAdapter.setOnSchoolClickListener(new SchoolClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(getApplicationContext(), SchoolActivity.class);
+
+                School mSchool = mSchools.get(position);
+
+                intent.putExtra(SchoolActivity.SCHOOL_NAME_KEY, mSchool.getName());
+                intent.putExtra(SchoolActivity.SCHOOL_DESCRIPTION_KEY, mSchool.getDescription());
+                intent.putExtra(SchoolActivity.SCHOOL_LOGO_KEY, mSchool.getLogo());
+
+                startActivity(intent);
+            }
+        });
     }
 }
